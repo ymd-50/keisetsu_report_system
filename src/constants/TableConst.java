@@ -44,8 +44,8 @@ public interface TableConst {
 
     int REP_PERSONAL = 0;
     int REP_GROUP = 1;
-    int REP_READE = 0;
-    int REP_UNREAD = 1;
+    int REP_READE = 1;
+    int REP_UNREAD = 0;
 
 
     //commentsテーブル
