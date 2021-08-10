@@ -28,14 +28,37 @@
                 </tr>
                 <c:forEach var="employee" items="${employees}" varStatus="status">
                     <tr class="row${status.count % 2}">
-                        <c:choose>
+                        <td><c:out value="${employee.name}" /></td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${employee.workStyle == 0}">
+                                    常勤
+                                </c:when>
+                                <c:otherwise>
+                                    非常勤
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${employee.subject == 0}">
+                                    文系
+                                </c:when>
+                                <c:otherwise>
+                                    理系
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>
+                            <c:choose>
                                 <c:when test="${employee.deleteFlag == AttributeConst.DEL_TRUE.getIntegerValue()}">
                                     （削除済み）
                                 </c:when>
                                 <c:otherwise>
                                     <a href="<c:url value='?action=${actEmp}&command=${commShow}&id=${employee.id}' />">詳細を見る</a>
                                 </c:otherwise>
-                        </c:choose>
+                            </c:choose>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>

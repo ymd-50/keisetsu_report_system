@@ -22,7 +22,13 @@ public enum AttributeConst {
     EMPLOYEE("employee"),
     EMPLOYEES("employees"),
     EMP_COUNT("employees_count"),
-    EMP_WORK_STYLE("work_style");
+    EMP_WORK_STYLE("work_style"),
+    EMP_NAME("name"),
+    EMP_SUBJECT("subject"),
+    EMP_MAIL("mail_address"),
+    EMP_ID("id"),
+    EMP_PASS("password")
+
     ;
 
     private final String text;
