@@ -12,7 +12,17 @@ public enum AttributeConst {
     GROUP(1),
 
     READ(1),
-    UNREAD(0)
+    UNREAD(0),
+
+    FLUSH("flush"),
+    TOKEN("_token"),
+    PAGE("page"),
+    MAX_ROW("maxRow"),
+
+    EMPLOYEE("employee"),
+    EMPLOYEES("employees"),
+    EMP_COUNT("employees_count"),
+    EMP_WORK_STYLE("work_style");
     ;
 
     private final String text;

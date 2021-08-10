@@ -60,7 +60,7 @@ public class FrontController extends HttpServlet {
         try {
             String actionParam = request.getParameter(ForwardConst.ACT.getValue());
 
-            type = Class.forName("action." + actionParam + "Action");
+            type = Class.forName("actions." + actionParam + "Action");
 
             action = (ActionBase) (type.asSubclass(ActionBase.class)
                     .getDeclaredConstructor()
@@ -68,7 +68,7 @@ public class FrontController extends HttpServlet {
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
                 | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-
+            System.err.print("front controller->" + e.getCause());
             //例外が投げられた場合はエラー処理を行うActionオブジェクト生成
             action = new UnknownAction();
         }

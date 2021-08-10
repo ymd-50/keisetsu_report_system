@@ -11,6 +11,9 @@ public interface QueryConst {
     String PARAM_PASS = "password";
     String PARAM_EMP_ID = "employeeId";
     String PARAM_REP_ID = "reportId";
+    String PARAM_WORK_STYLE = "workStyle";
+
+    int ROW_PER_PAGE = 15;
 
     /*
      * employeesテーブル
@@ -21,16 +24,16 @@ public interface QueryConst {
     //全ての講師の件数を取得
     String EMP_COUNT = ENTITY_EMP + ".count";
     String EMP_COUNT_DEF = "select count(e) from Employee as e";
-    //非常勤講師のみ取得
-    String EMP_GET_PART_TIME = ENTITY_EMP + ".getPartTime";
-    String EMP_GET_PART_TIME_DEF = "select count(e) from Employee as e where e.workStyle = :" + TableConst.EMP_PART_TIME;
-    //常勤講師のみ取得
-    String EMP_GET_FULL_TIME = ENTITY_EMP + ".getFullTime";
-    String EMP_GET_FULL_TIME_DEF = "select count(e) from Employee as e where e.workStyle = :" + TableConst.EMP_FULL_TIME;
+    //WorkStyleパラメータと一致する講師を取得
+    String EMP_GET_BY_WORK_STYLE = ENTITY_EMP + ".getByWorkStyle";
+    String EMP_GET_BY_WORK_STYLE_DEF = "select e from Employee as e where e.workStyle = :" + PARAM_WORK_STYLE;
+    //WorkStyleパラメータと一致する講師の件数を取得
+    String EMP_COUNT_BY_WORK_STYLE = ENTITY_EMP + ".countByWorkStyle";
+    String EMP_COUNT_BY_WORK_STYLE_DEF = "select count(e) from Employee as e where e.workStyle = :" + PARAM_WORK_STYLE;
     //mailAddressとpasswordのパラメータと一致する講師を取得
     String EMP_GET_BY_MAIL_AND_PASS = ENTITY_EMP + ".getByMailAndPass";
     String EMP_GET_BY_MAIL_AND_PASS_DEF = "select e from Employee as e where e.deleteFlag = 0 and e.mailAddress = :" + PARAM_MAIL + " and e.password = :" + PARAM_PASS;
-    //mailAddressパラメータと一致する講師を取得
+    //mailAddressパラメータと一致する講師の件数を取得
     String EMP_COUNT_BY_MAIL = ENTITY_EMP + ".countByMailAddress";
     String EMP_COUNT_BY_MAIL_DEF = "select count(e) from Employee as e where e.mailAddress = :" + PARAM_MAIL;
 

@@ -34,12 +34,12 @@ import lombok.Setter;
 
             ),
     @NamedQuery(
-            name = QueryConst.EMP_GET_FULL_TIME,
-            query = QueryConst.EMP_GET_FULL_TIME_DEF
+            name = QueryConst.EMP_GET_BY_WORK_STYLE,
+            query = QueryConst.EMP_GET_BY_WORK_STYLE_DEF
             ),
     @NamedQuery(
-            name = QueryConst.EMP_GET_PART_TIME,
-            query = QueryConst.EMP_GET_PART_TIME_DEF
+            name = QueryConst.EMP_COUNT_BY_WORK_STYLE,
+            query = QueryConst.EMP_COUNT_BY_WORK_STYLE_DEF
             ),
     @NamedQuery(
             name = QueryConst.EMP_COUNT_BY_MAIL,
