@@ -40,6 +40,10 @@ import lombok.Setter;
     @NamedQuery(
             name = QueryConst.EMP_GET_PART_TIME,
             query = QueryConst.EMP_GET_PART_TIME_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.EMP_COUNT_BY_MAIL,
+            query = QueryConst.EMP_COUNT_BY_MAIL_DEF
             )
 
 })

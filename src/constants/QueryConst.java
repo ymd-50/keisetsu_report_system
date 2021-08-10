@@ -30,6 +30,9 @@ public interface QueryConst {
     //mailAddressとpasswordのパラメータと一致する講師を取得
     String EMP_GET_BY_MAIL_AND_PASS = ENTITY_EMP + ".getByMailAndPass";
     String EMP_GET_BY_MAIL_AND_PASS_DEF = "select e from Employee as e where e.deleteFlag = 0 and e.mailAddress = :" + PARAM_MAIL + " and e.password = :" + PARAM_PASS;
+    //mailAddressパラメータと一致する講師を取得
+    String EMP_COUNT_BY_MAIL = ENTITY_EMP + ".countByMailAddress";
+    String EMP_COUNT_BY_MAIL_DEF = "select count(e) from Employee as e where e.mailAddress = :" + PARAM_MAIL;
 
 
 
