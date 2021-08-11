@@ -1,6 +1,8 @@
 package constants;
 
 public enum MessageConst {
+    I_REGISTERED("登録完了しました"),
+
     //バリデーション
     E_NONAME("氏名が未入力です"),
     E_NOPASSWORD("パスワードが未入力です"),

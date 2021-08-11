@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import actions.views.EmployeeView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import constants.MessageConst;
+import constants.PropertyConst;
 import constants.QueryConst;
 import services.EmployeeService;
 
@@ -64,11 +66,42 @@ public class EmployeeAction extends ActionBase {
     }
 
     public void create() throws ServletException, IOException{
+        if(checkToken()) {
 
+            EmployeeView ev = new EmployeeView(
+                    null,
+                    getRequestParam(AttributeConst.EMP_NAME),
+                    toNumber(getRequestParam(AttributeConst.EMP_SUBJECT)),
+                    toNumber(getRequestParam(AttributeConst.EMP_WORK_STYLE)),
+                    getRequestParam(AttributeConst.EMP_MAIL),
+                    getRequestParam(AttributeConst.EMP_PASS),
+                    AttributeConst.DEL_FALSE.getIntegerValue(),
+                    null,
+                    null
+                    );
+
+            String pepper = getContextScope(PropertyConst.PEPPER);
+
+            List<String> errors = EmployeeService.create(ev, pepper);
+
+            if(errors.size() > 0) {
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.EMPLOYEE, ev);
+                putRequestScope(AttributeConst.ERR, errors);
+
+                forward(ForwardConst.FW_EMP_NEW);
+            } else {
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
+                redirect(ForwardConst.ACT_EMP, ForwardConst.CMD_INDEX);
+            }
+
+
+
+        }
     }
 
     public void show() throws ServletException, IOException{
-
+        
     }
 
     public void edit() throws ServletException, IOException{

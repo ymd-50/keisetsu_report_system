@@ -1,11 +1,14 @@
 package services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
 import constants.QueryConst;
 import models.Employee;
+import models.validators.EmployeeValidator;
+import utils.EncryptUtil;
 
 public class EmployeeService extends ServiceBase {
     /**
@@ -72,5 +75,43 @@ public class EmployeeService extends ServiceBase {
                 .getSingleResult();
         return employeeCount;
     }
+
+    /**
+     * パスワードをハッシュ化した後に講師を一人登録する
+     * @param ev
+     * @param pepper
+     * @return エラーリスト
+     */
+    public List<String> create(EmployeeView ev, String pepper){
+
+
+
+        LocalDateTime now = LocalDateTime.now();
+        ev.setCreatedAt(now);
+        ev.setUpdatedAt(now);
+
+        List<String> errors = EmployeeValidator.validate(this, ev, true, true);
+
+        String pass = EncryptUtil.getPasswordEncrypt(ev.getPassword(), pepper);
+        ev.setPassword(pass);
+
+        if(errors.size() == 0) {
+            create(ev);
+        }
+
+        return errors;
+    }
+
+    /**
+     * 講師を一人登録
+     * @param ev
+     */
+    private void create(EmployeeView ev) {
+        em.getTransaction().begin();
+        em.persist(EmployeeConverter.toModel(ev));
+        em.getTransaction().commit();
+    }
+
+
 
 }

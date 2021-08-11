@@ -5,8 +5,8 @@ public enum AttributeConst {
     SUB_SCI(1),
     FULL_TIME(0),
     PART_TIME(1),
-    DEL_TRUE(0),
-    DEL_FALSE(1),
+    DEL_TRUE(1),
+    DEL_FALSE(0),
 
     PERSONAL(0),
     GROUP(1),
@@ -18,6 +18,7 @@ public enum AttributeConst {
     TOKEN("_token"),
     PAGE("page"),
     MAX_ROW("maxRow"),
+    ERR("errors"),
 
     EMPLOYEE("employee"),
     EMPLOYEES("employees"),

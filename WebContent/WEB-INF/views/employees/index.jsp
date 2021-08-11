@@ -18,6 +18,17 @@
 
         <h2>講師 一覧</h2>
 
+        <form method="post" action="<c:url value='?action=${actEmp}&command=${commIdx}' />">
+            <p>絞り込み<br>
+            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value="" checked> すべて
+            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value="${AttributeConst.FULL_TIME.getIntegerValue()}" > 常勤のみ
+            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value="${AttributeConst.PART_TIME.getIntegerValue()}"  > 非常勤のみ
+            </p>
+
+            <p><input type="submit" value="表示"></p>
+        </form>
+
+
         <table id="employee_list">
             <tbody>
                 <tr>

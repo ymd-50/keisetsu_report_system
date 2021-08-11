@@ -53,7 +53,9 @@ public class EmployeeValidator {
         if(mailAddress == null || mailAddress.equals("")) {
             //空白
             return MessageConst.E_NOMAILADDRESS.getMessage();
-        } else if( !checkMailAddress(mailAddress)) {
+        }
+
+        if( !checkMailAddress(mailAddress)) {
             //メールアドレスではない時
             return MessageConst.E_ISNT_MAILADDRES.getMessage();
         }
@@ -115,7 +117,9 @@ public class EmployeeValidator {
             if(password == null || password.equals("")) {
                 //空白
                 return MessageConst.E_NOPASSWORD.getMessage();
-            } else if(password.length() < NormConst.PASS_MUST_OVER.getIntegerValue()) {
+            }
+
+            if(password.length() < NormConst.PASS_MUST_OVER.getIntegerValue()) {
                 //８文字未満
                 return MessageConst.E_ISNT_OVER.getMessage();
             }
