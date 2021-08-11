@@ -68,6 +68,7 @@ public class EmployeeAction extends ActionBase {
     public void create() throws ServletException, IOException{
         if(checkToken()) {
 
+            //入力内容をセット
             EmployeeView ev = new EmployeeView(
                     null,
                     getRequestParam(AttributeConst.EMP_NAME),
@@ -85,6 +86,7 @@ public class EmployeeAction extends ActionBase {
             List<String> errors = EmployeeService.create(ev, pepper);
 
             if(errors.size() > 0) {
+                //バリデーションに引っかかった場合
                 putRequestScope(AttributeConst.TOKEN, getTokenId());
                 putRequestScope(AttributeConst.EMPLOYEE, ev);
                 putRequestScope(AttributeConst.ERR, errors);
@@ -101,7 +103,17 @@ public class EmployeeAction extends ActionBase {
     }
 
     public void show() throws ServletException, IOException{
-        
+        //IDパラメータから講師のインスタンスを取得
+        EmployeeView ev = EmployeeService.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
+
+        if(ev == null || ev.getDeleteFlag() == AttributeConst.DEL_TRUE.getIntegerValue()) {
+            //選択された講師が見つからなかった場合
+            forward(ForwardConst.FW_ERR_UNK);
+            return;
+        }
+
+        putRequestScope(AttributeConst.EMPLOYEE, ev);
+        forward(ForwardConst.FW_EMP_SHOW);
     }
 
     public void edit() throws ServletException, IOException{

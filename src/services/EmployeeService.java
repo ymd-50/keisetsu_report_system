@@ -3,6 +3,8 @@ package services;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
 import constants.QueryConst;
@@ -110,6 +112,47 @@ public class EmployeeService extends ServiceBase {
         em.getTransaction().begin();
         em.persist(EmployeeConverter.toModel(ev));
         em.getTransaction().commit();
+    }
+
+    /**
+     * mailAddress,plainPassパラメータから講師を一人取得する
+     * @param mailAddress
+     * @param plainPass
+     * @param pepper
+     * @return  講師のEmployeeViewインスタンス
+     */
+    public EmployeeView findOne(String mailAddress, String plainPass, String pepper) {
+        Employee e = null;
+        try {
+            String pass = EncryptUtil.getPasswordEncrypt(plainPass, pepper);
+
+            e = em.createNamedQuery(QueryConst.EMP_GET_BY_MAIL_AND_PASS, Employee.class)
+                    .setParameter(QueryConst.PARAM_MAIL, mailAddress)
+                    .setParameter(QueryConst.PARAM_PASS, pass)
+                    .getSingleResult();
+        } catch (NoResultException ex) {
+        }
+        return EmployeeConverter.toView(e);
+    }
+
+    /**
+     * idパラメータから講師を一人取得する
+     * @param id
+     * @return 講師のEmployeeViewインスタンス
+     */
+    public EmployeeView findOne(int id) {
+        Employee e = findOneInternal(id);
+        return EmployeeConverter.toView(e);
+    }
+
+    /**
+     * idパラメータから講師を一人取得する
+     * @param id
+     * @return 講師のEmployeeインスタンス
+     */
+    private Employee findOneInternal(int id) {
+        Employee e = em.find(Employee.class, id);
+        return e;
     }
 
 
