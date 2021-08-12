@@ -117,7 +117,19 @@ public class EmployeeAction extends ActionBase {
     }
 
     public void edit() throws ServletException, IOException{
+      //IDパラメータから講師のインスタンスを取得
+        EmployeeView ev = EmployeeService.findOne(toNumber(getRequestParam(AttributeConst.EMP_ID)));
 
+        if(ev == null || ev.getDeleteFlag() == AttributeConst.DEL_TRUE.getIntegerValue()) {
+            //選択された講師が見つからなかった場合
+            forward(ForwardConst.FW_ERR_UNK);
+            return;
+        }
+
+        putRequestScope(AttributeConst.TOKEN, getTokenId());
+        putRequestScope(AttributeConst.EMPLOYEE, ev);
+
+        forward(ForwardConst.FW_EMP_EDIT);
     }
 
     public void update() throws ServletException, IOException{
