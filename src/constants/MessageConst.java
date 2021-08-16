@@ -3,6 +3,7 @@ package constants;
 public enum MessageConst {
     I_REGISTERED("登録完了しました"),
     I_UPDATED("更新完了しました"),
+    I_DESTROID("削除完了しました"),
 
     //バリデーション
     E_NONAME("氏名が未入力です"),

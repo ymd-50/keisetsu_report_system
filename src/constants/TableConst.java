@@ -21,8 +21,8 @@ public interface TableConst {
     int EMP_SUB_SCI = 1;
     int EMP_FULL_TIME = 0;
     int EMP_PART_TIME = 1;
-    int EMP_DEL_TRUE = 0;
-    int EMP_DEL_FALSE = 1;
+    int EMP_DEL_TRUE = 1;
+    int EMP_DEL_FALSE = 0;
 
     //reportsテーブル
     String TABLE_REP = "reports";

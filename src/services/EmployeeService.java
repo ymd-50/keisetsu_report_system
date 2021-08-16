@@ -8,6 +8,7 @@ import javax.persistence.NoResultException;
 import actions.views.EmployeeConverter;
 import actions.views.EmployeeView;
 import constants.QueryConst;
+import constants.TableConst;
 import models.Employee;
 import models.validators.EmployeeValidator;
 import utils.EncryptUtil;
@@ -207,6 +208,21 @@ public class EmployeeService extends ServiceBase {
         Employee e = findOneInternal(ev.getId());
         EmployeeConverter.copyViewToModel(e, ev);
         em.getTransaction().commit();
+    }
+
+    /**
+     * 講師を論理削除する
+     * @param id
+     */
+    public void detroy(Integer id) {
+        EmployeeView ev = findOne(id);
+
+        LocalDateTime now = LocalDateTime.now();
+        ev.setUpdatedAt(now);
+        ev.setDeleteFlag(TableConst.EMP_DEL_TRUE);
+
+        update(ev);
+
     }
 
 
