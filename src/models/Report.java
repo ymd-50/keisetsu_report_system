@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -23,10 +24,10 @@ import lombok.Setter;
 
 @Table(name = TableConst.TABLE_REP)
 @NamedQueries({
-    @NamedQuery(
+    /*@NamedQuery(
             name = QueryConst.REP_COUNT_BY_EMP_ID,
             query = QueryConst.REP_COUNT_BY_EMP_ID_DEF
-            )
+            )*/
 })
 
 @Getter
@@ -43,7 +44,7 @@ public class Report {
 
     //作成者
     @ManyToOne
-    @Column(name = TableConst.REP_EMP_ID, nullable = false)
+    @JoinColumn(name = TableConst.REP_EMP_ID, nullable = false)
     private Employee employee;
 
     //指導形態
