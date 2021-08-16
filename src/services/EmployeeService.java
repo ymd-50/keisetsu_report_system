@@ -155,6 +155,60 @@ public class EmployeeService extends ServiceBase {
         return e;
     }
 
+    /**
+     * 講師を更新する
+     * @param ev
+     * @param pepper
+     * @return errorList
+     */
+    public List<String> update(EmployeeView ev, String pepper) {
+        //編集前のEmployeeView
+        EmployeeView saveEmp = findOne(ev.getId());
+
+        //validateFlagの処理
+        boolean validateMail = false;
+        if(!ev.getMailAddress().equals(saveEmp.getMailAddress())) {
+            validateMail = true;
+            saveEmp.setMailAddress(ev.getMailAddress());
+        }
+        //validateFlagの処理
+        boolean validatePass = false;
+        if(ev.getPassword() != null && !ev.getPassword().equals("")) {
+            validatePass = true;
+            saveEmp.setPassword(ev.getPassword());
+        }
+
+        saveEmp.setName(ev.getName());
+        saveEmp.setSubject(ev.getSubject());
+        saveEmp.setWorkStyle(ev.getWorkStyle());
+
+        LocalDateTime now = LocalDateTime.now();
+        saveEmp.setUpdatedAt(now);
+
+        List<String> errors = EmployeeValidator.validate(this, saveEmp, validateMail, validatePass);
+
+        //ハッシュ化したパスワードをセット
+        saveEmp.setPassword(EncryptUtil.getPasswordEncrypt(ev.getPassword(), pepper));
+
+        if(errors.size() == 0) {
+            //エラーがない場合はupdate
+            update(saveEmp);
+        }
+
+        return errors;
+    }
+
+    /**
+     * DBに講師のデータを更新する
+     * @param ev
+     */
+    private void update(EmployeeView ev) {
+        em.getTransaction().begin();
+        Employee e = findOneInternal(ev.getId());
+        EmployeeConverter.copyViewToModel(e, ev);
+        em.getTransaction().commit();
+    }
+
 
 
 }

@@ -133,11 +133,40 @@ public class EmployeeAction extends ActionBase {
     }
 
     public void update() throws ServletException, IOException{
+        if(checkToken()) {
 
+            EmployeeView ev = new EmployeeView(
+                    toNumber(getRequestParam(AttributeConst.EMP_ID)),
+                    getRequestParam(AttributeConst.EMP_NAME),
+                    toNumber(getRequestParam(AttributeConst.EMP_SUBJECT)),
+                    toNumber(getRequestParam(AttributeConst.EMP_WORK_STYLE)),
+                    getRequestParam(AttributeConst.EMP_MAIL),
+                    getRequestParam(AttributeConst.EMP_PASS),
+                    AttributeConst.DEL_FALSE.getIntegerValue(),
+                    null,
+                    null
+                    );
+
+            String pepper = getContextScope(PropertyConst.PEPPER);
+            List<String> errors = EmployeeService.update(ev, pepper);
+
+            if(errors.size() > 0) {
+                //入力内容にエラーがあった場合
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.ERR, errors);
+                putRequestScope(AttributeConst.EMPLOYEE, ev);
+
+                forward(ForwardConst.FW_EMP_EDIT);
+            } else {
+                putRequestScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+                redirect(ForwardConst.ACT_EMP, ForwardConst.CMD_INDEX);
+            }
+        }
     }
 
     public void destroy() throws ServletException, IOException{
 
     }
+
 
 }
