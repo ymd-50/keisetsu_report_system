@@ -32,7 +32,7 @@ public class ReportView {
 
     private String title;
 
-    private Integer content;
+    private String content;
 
     private String absentee;
 

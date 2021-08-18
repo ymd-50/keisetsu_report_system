@@ -12,10 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import constants.QueryConst;
 import constants.TableConst;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -78,7 +76,7 @@ public class Report {
     //指導内容
     @Lob
     @Column(name = TableConst.REP_CONTENT, nullable = false)
-    private Integer content;
+    private String content;
 
     //欠席者
     @Lob
