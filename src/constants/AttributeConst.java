@@ -28,7 +28,9 @@ public enum AttributeConst {
     EMP_SUBJECT("subject"),
     EMP_MAIL("mail_address"),
     EMP_ID("id"),
-    EMP_PASS("password")
+    EMP_PASS("password"),
+
+    LOGIN_EMP("login_employee")
 
     ;
 

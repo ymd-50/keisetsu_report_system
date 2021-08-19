@@ -12,6 +12,7 @@ public interface QueryConst {
     String PARAM_EMP_ID = "employeeId";
     String PARAM_REP_ID = "reportId";
     String PARAM_WORK_STYLE = "workStyle";
+    String PARAM_LESSON_STYLE = "lessonStyle";
 
     int ROW_PER_PAGE = 15;
 
@@ -48,21 +49,22 @@ public interface QueryConst {
     //全ての指導報告を取得（最終更新日時順）
     String REP_GET_ALL_ORDER_BY_UPDATE = ENTITY_REP + "getAllOrderByUpdate";
     String REP_GET_ALL_ORDER_BY_UPDATE_DEF = "select r from Report as r order by r.updatedAt desc";
+    //
     //全ての指導報告の件数を取得
     String REP_COUNT = ENTITY_REP + ".count";
     String REP_COUNT_DEF = "select count(r) from Report as r";
-    //employeeIdパラメータと一致する指導報告の件数を取得
-    String REP_COUNT_BY_EMP_ID = ENTITY_REP + ".countByEmployeeId";
-    String REP_COUNT_BY_EMP_ID_DEF = "select count(r) from Report as r where r.employeeId = :" + PARAM_EMP_ID;
-    //授業のみ取得
-    String REP_GET_GROUP = ENTITY_REP + ".getGroup";
-    String REP_GET_GROUP_DEF = "select r from Report as r where r.lessonStyle = :" + TableConst.REP_GROUP;
-    //個別のみ取得
-    String REP_GET_PERSONAL = ENTITY_REP + "getPersonal";
-    String REP_GET_PERSONAL_DEF = "select r from Report as r where r.lessonStyle = :" + TableConst.REP_PERSONAL;
+    //lessonStyleパラメータに一致する指導報告を取得
+    String REP_GET_BY_LESSON_STYLE = ENTITY_REP + ".getByLessonStyle";
+    String REP_GET_BY_LESSON_STYLE_DEF = "select r from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE;
+    //lessonStyleパラメータに一致する指導報告の件数を取得
+    String REP_COUNT_BY_LESSON_STYLE = ENTITY_REP + ".getByLessonStyle";
+    String REP_COUNT_BY_LESSON_STYLE_DEF = "select count(r) from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE;
     //employeeIdパラメータと一致する指導報告を取得
     String REP_GET_BY_EMP_ID = ENTITY_REP + ".getByEmployeeId";
     String REP_GET_BY_EMP_ID_DEF = "select r from Report as r where r.employeeId = :" + PARAM_EMP_ID;
+    //employeeIdパラメータと一致する指導報告の件数を取得
+    String REP_COUNT_BY_EMP_ID = ENTITY_REP + ".countByEmployeeId";
+    String REP_COUNT_BY_EMP_ID_DEF = "select count(r) from Report as r where r.employeeId = :" + PARAM_EMP_ID;
 
     /*
      * commentsテーブル
