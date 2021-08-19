@@ -48,12 +48,12 @@ public class AuthAction extends ActionBase {
             if(checkToken()) {
                 //認証成功
                 EmployeeView ev = service.findOne(mailAddress, plainPass, pepper);
-                putSessionScope(AttributeConst.EMPLOYEE, ev);
+                putSessionScope(AttributeConst.LOGIN_EMP, ev);
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_LOGINED.getMessage());
 
                 if(ev.getWorkStyle() == TableConst.EMP_FULL_TIME) {
                     //常勤講師の場合
-                    redirect(ForwardConst.ACT_EMP, ForwardConst.CMD_INDEX);
+                    redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
                 } else {
                     //非常勤講師の場合
                     redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);

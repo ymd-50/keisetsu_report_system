@@ -55,6 +55,7 @@ public class LoginFilter implements Filter {
             EmployeeView ev = (EmployeeView) session.getAttribute(AttributeConst.LOGIN_EMP.getValue());
             if(ev == null) {
                 //未ログイン
+                System.out.println("filter-not-login");
                 if(!(ForwardConst.ACT_AUTH.getValue().equals(action)
                         && (ForwardConst.CMD_SHOW_LOGIN.getValue().equals(command)
                                 || ForwardConst.CMD_LOGIN.getValue().equals(command)))) {
@@ -67,6 +68,7 @@ public class LoginFilter implements Filter {
                 }
             } else {
                 //ログイン済み
+                System.out.println("filter-logined");
                 if(ForwardConst.ACT_AUTH.getValue().equals(action)) {
                     //認証系アクションを行う時
                     if(ForwardConst.CMD_SHOW_LOGIN.getValue().equals(command)) {

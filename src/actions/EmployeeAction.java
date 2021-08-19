@@ -18,11 +18,13 @@ public class EmployeeAction extends ActionBase {
     private EmployeeService EmployeeService;
     @Override
     public void process() throws ServletException, IOException {
-        EmployeeService = new EmployeeService();
+        if(checkWorker()) {
+            EmployeeService = new EmployeeService();
 
-        doCommand();
+            doCommand();
 
-        EmployeeService.close();
+            EmployeeService.close();
+        }
     }
 
     public void index() throws ServletException, IOException{
@@ -169,6 +171,23 @@ public class EmployeeAction extends ActionBase {
             EmployeeService.detroy(toNumber(getRequestParam(AttributeConst.EMP_ID)));
             putSessionScope(AttributeConst.FLUSH, MessageConst.I_DESTROID.getMessage());
             redirect(ForwardConst.ACT_EMP, ForwardConst.CMD_INDEX);
+        }
+    }
+
+    /**
+     * 常勤講師かどうかチェックする
+     * @return 常勤の時はtrue,非常勤時はfalseかつエラー画面遷移
+     * @throws ServletException
+     * @throws IOException
+     */
+    private boolean checkWorker() throws ServletException, IOException {
+        EmployeeView ev = (EmployeeView)getSessionScope(AttributeConst.LOGIN_EMP);
+
+        if(ev.getWorkStyle() == AttributeConst.FULL_TIME.getIntegerValue()) {
+            return true;
+        } else {
+            forward(ForwardConst.FW_ERR_UNK);
+            return false;
         }
     }
 
