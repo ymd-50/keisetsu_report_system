@@ -12,8 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import constants.QueryConst;
 import constants.TableConst;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,11 +24,56 @@ import lombok.Setter;
 
 @Table(name = TableConst.TABLE_REP)
 @NamedQueries({
-    /*@NamedQuery(
-            name = QueryConst.REP_COUNT_BY_EMP_ID,
-            query = QueryConst.REP_COUNT_BY_EMP_ID_DEF
-            )*/
+    @NamedQuery(
+            name = QueryConst.REP_GET_ALL_ORDER_BY_REP_DATE,
+            query = QueryConst.REP_GET_ALL_ORDER_BY_REP_DATE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_GET_ALL_ORDER_BY_UPDATE,
+            query = QueryConst.REP_GET_ALL_ORDER_BY_UPDATE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_COUNT,
+            query = QueryConst.REP_COUNT_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_GET_BY_LESSON_STYLE_ORDER_BY_REP_DATE,
+            query = QueryConst.REP_GET_BY_LESSON_STYLE_ORDER_BY_REP_DATE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_GET_BY_LESSON_STYLE_ORDER_BY_UPDATE,
+            query = QueryConst.REP_GET_BY_LESSON_STYLE_ORDER_BY_UPDATE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_COUNT_BY_LESSON_STYLE,
+            query = QueryConst.REP_COUNT_BY_LESSON_STYLE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_REP_DATE,
+            query = QueryConst.REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_REP_DATE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_UPDATE,
+            query = QueryConst.REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_UPDATE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_COUNT_BY_LESSON_STYLE_AND_EMP,
+            query = QueryConst.REP_COUNT_BY_LESSON_STYLE_AND_EMP_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_GET_BY_EMP_ORDER_BY_REP_DATE,
+            query = QueryConst.REP_GET_BY_EMP_ORDER_BY_REP_DATE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_GET_BY_EMP_ORDER_BY_UPDATE,
+            query = QueryConst.REP_GET_BY_EMP_ORDER_BY_UPDATE_DEF
+            ),
+    @NamedQuery(
+            name = QueryConst.REP_COUNT_BY_EMP,
+            query = QueryConst.REP_COUNT_BY_EMP_DEF
+            )
 })
+
 
 @Getter
 @Setter

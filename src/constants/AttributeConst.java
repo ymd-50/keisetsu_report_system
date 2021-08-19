@@ -10,6 +10,8 @@ public enum AttributeConst {
 
     PERSONAL(0),
     GROUP(1),
+    ORDER_BY_REP_DATE(0),
+    ORDER_BY_UPDATE(1),
 
     READ(1),
     UNREAD(0),
@@ -30,7 +32,15 @@ public enum AttributeConst {
     EMP_ID("id"),
     EMP_PASS("password"),
 
-    LOGIN_EMP("login_employee")
+    LOGIN_EMP("login_employee"),
+
+    REPORT("report"),
+    REPORTS("reports"),
+    REP_COUNT("report_count"),
+    REP_LESSON_STYLE("lesson_style"),
+
+    REP_ORDER_BY("order_by")
+
 
     ;
 

@@ -13,6 +13,7 @@ public interface QueryConst {
     String PARAM_REP_ID = "reportId";
     String PARAM_WORK_STYLE = "workStyle";
     String PARAM_LESSON_STYLE = "lessonStyle";
+    String PARAM_EMP = "employee";
 
     int ROW_PER_PAGE = 15;
 
@@ -49,22 +50,40 @@ public interface QueryConst {
     //全ての指導報告を取得（最終更新日時順）
     String REP_GET_ALL_ORDER_BY_UPDATE = ENTITY_REP + "getAllOrderByUpdate";
     String REP_GET_ALL_ORDER_BY_UPDATE_DEF = "select r from Report as r order by r.updatedAt desc";
-    //
     //全ての指導報告の件数を取得
     String REP_COUNT = ENTITY_REP + ".count";
     String REP_COUNT_DEF = "select count(r) from Report as r";
-    //lessonStyleパラメータに一致する指導報告を取得
-    String REP_GET_BY_LESSON_STYLE = ENTITY_REP + ".getByLessonStyle";
-    String REP_GET_BY_LESSON_STYLE_DEF = "select r from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE;
+    //lessonStyleパラメータに一致する指導報告を取得（指導日時順）
+    String REP_GET_BY_LESSON_STYLE_ORDER_BY_REP_DATE = ENTITY_REP + ".getByLessonStyleOrderByRepDate";
+    String REP_GET_BY_LESSON_STYLE_ORDER_BY_REP_DATE_DEF = "select r from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE + " order by r.reportDate desc";
+    //lessonStyleパラメータに一致する指導報告を取得（最終更新日時順）
+    String REP_GET_BY_LESSON_STYLE_ORDER_BY_UPDATE = ENTITY_REP + ".getByLessonStyleOrderByUpdate";
+    String REP_GET_BY_LESSON_STYLE_ORDER_BY_UPDATE_DEF = "select r from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE + " order by r.updatedAt desc";
     //lessonStyleパラメータに一致する指導報告の件数を取得
     String REP_COUNT_BY_LESSON_STYLE = ENTITY_REP + ".getByLessonStyle";
     String REP_COUNT_BY_LESSON_STYLE_DEF = "select count(r) from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE;
-    //employeeIdパラメータと一致する指導報告を取得
-    String REP_GET_BY_EMP_ID = ENTITY_REP + ".getByEmployeeId";
-    String REP_GET_BY_EMP_ID_DEF = "select r from Report as r where r.employeeId = :" + PARAM_EMP_ID;
-    //employeeIdパラメータと一致する指導報告の件数を取得
-    String REP_COUNT_BY_EMP_ID = ENTITY_REP + ".countByEmployeeId";
-    String REP_COUNT_BY_EMP_ID_DEF = "select count(r) from Report as r where r.employeeId = :" + PARAM_EMP_ID;
+  //lessonStyleとemployeeパラメータに一致する指導報告を取得（指導日時順）
+    String REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_REP_DATE = ENTITY_REP + ".getByLessonStyleAndEmpOrderByRepDate";
+    String REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_REP_DATE_DEF = "select r from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE + " and r.employee = :" + PARAM_EMP + " order by r.reportDate desc";
+    //lessonStyleとemployeeパラメータに一致する指導報告を取得（最終更新日時順）
+    String REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_UPDATE = ENTITY_REP + ".getByLessonStyleAndEmpOrderByUpdate";
+    String REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_UPDATE_DEF = "select r from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE + " and r.employee = :" + PARAM_EMP + " order by r.updatedAt desc";
+    //lessonStyleとemployeeパラメータに一致する指導報告の件数を取得
+    String REP_COUNT_BY_LESSON_STYLE_AND_EMP = ENTITY_REP + ".getByLessonStyleAndEmp";
+    String REP_COUNT_BY_LESSON_STYLE_AND_EMP_DEF = "select count(r) from Report as r where r.lessonStyle = :" + PARAM_LESSON_STYLE + " and r.employee = :" + PARAM_EMP;
+  //employeeパラメータに一致する指導報告を取得（指導日時順）
+    String REP_GET_BY_EMP_ORDER_BY_REP_DATE = ENTITY_REP + ".getByEmpOrderByReportDate";
+    String REP_GET_BY_EMP_ORDER_BY_REP_DATE_DEF = "select r from Report as r where r.employee = :" + PARAM_EMP + " order by r.reportDate desc";
+    //employeeパラメータに一致する指導報告を取得（最終更新日時順）
+    String REP_GET_BY_EMP_ORDER_BY_UPDATE = ENTITY_REP + "getByEmpOrderByUpdate";
+    String REP_GET_BY_EMP_ORDER_BY_UPDATE_DEF = "select r from Report as r where r.employee = :" + PARAM_EMP + " order by r.updatedAt desc";
+    //employeeパラメータに一致する指導報告の件数を取得
+    String REP_COUNT_BY_EMP = ENTITY_REP + ".countByEmp";
+    String REP_COUNT_BY_EMP_DEF = "select count(r) from Report as r where r.employee = :" + PARAM_EMP;
+
+    int ORDER_BY_REP_DATE = 0;
+    int ORDER_BY_UPDATE = 1;
+
 
     /*
      * commentsテーブル
