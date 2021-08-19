@@ -83,7 +83,7 @@ public class LoginFilter implements Filter {
                         //ログアウトしようとしている時
                     } else {
                         //その他
-                        String forward = String.format("/WEB-INF/views/%s.jsp", "error/unknown");
+                        String forward = String.format("/WEB-INF/views/%s.jsp", "errors/unknown");
                         RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
                         dispatcher.forward(request, response);
 
