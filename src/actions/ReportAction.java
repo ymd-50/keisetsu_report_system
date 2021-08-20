@@ -70,6 +70,8 @@ public class ReportAction extends ActionBase {
         putRequestScope(AttributeConst.TOKEN, getTokenId());
         putRequestScope(AttributeConst.REPORT, rv);
 
+
+
         forward(ForwardConst.FW_REP_NEW);
     }
 
@@ -100,6 +102,8 @@ public class ReportAction extends ActionBase {
                 putRequestScope(AttributeConst.TOKEN, getTokenId());
                 putRequestScope(AttributeConst.REPORT, rv);
                 putRequestScope(AttributeConst.ERR, errors);
+                putRequestScope(AttributeConst.REP_TEMP_SCHOOL, getRequestParam(AttributeConst.REP_TEMP_SCHOOL));
+                putRequestScope(AttributeConst.REP_TEMP_STUDENT, getRequestParam(AttributeConst.REP_TEMP_STUDENT));
 
 
                 forward(ForwardConst.FW_REP_NEW);
@@ -113,7 +117,15 @@ public class ReportAction extends ActionBase {
     }
 
     public void show() throws ServletException, IOException {
+        System.out.println("showCommand!!");
+        ReportView rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
 
+        if(rv == null) {
+            forward(ForwardConst.FW_ERR_UNK);
+        } else {
+            putRequestScope(AttributeConst.REPORT, rv);
+            forward(ForwardConst.FW_REP_SHOW);
+        }
     }
 
     public void edit() throws ServletException, IOException {

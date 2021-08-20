@@ -136,4 +136,13 @@ public class ReportService extends ServiceBase {
         em.getTransaction().commit();
     }
 
+    public ReportView findOne(int id) {
+        return ReportConverter.toView(findOneInternal(id));
+    }
+
+    private Report findOneInternal(int id) {
+        Report r = em.find(Report.class, id);
+        return r;
+    }
+
 }

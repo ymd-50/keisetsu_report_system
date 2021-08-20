@@ -41,7 +41,7 @@
         <br /><br />
     </c:when>
     <c:otherwise>
-        <label for="${AttributeConst.REP_CLASS_NAME.getValue()}">学校名 / 生徒名</label><br />
+        学校名 / 生徒名<br />
         <input type="text" name="${AttributeConst.REP_TEMP_SCHOOL.getValue()}" value="${school}" />
         &nbsp;/&nbsp;
         <input type="text" name="${AttributeConst.REP_TEMP_STUDENT.getValue()}" value="${student}" />

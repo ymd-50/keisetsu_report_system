@@ -52,7 +52,7 @@ public enum AttributeConst {
     REP_TITLE("title"),
     REP_CONTENT("content"),
     REP_ABSENTEE("absentee"),
-    REP_ID("report_id"),
+    REP_ID("id"),
 
     REP_TEMP_SCHOOL("school"),
     REP_TEMP_STUDENT("student"),
