@@ -57,7 +57,7 @@ public class ReportValidator {
      */
     private static String validateReportDate(LocalDate date) {
         LocalDate now = LocalDate.now();
-        if(now.isAfter(date) == false) {
+        if(now.isBefore(date) == true) {
             return MessageConst.E_REPORT_DATE.getMessage();
         }
 
@@ -72,6 +72,8 @@ public class ReportValidator {
     private static String validateClassName(String className) {
         if(className == null || className.equals("")) {
             return MessageConst.E_NOCLASSNAME.getMessage();
+        } else if(className.equals("ERROR")) {
+            return MessageConst.E_NOSCHOOL_OR_NOSTYDENT.getMessage();
         }
 
         return "";

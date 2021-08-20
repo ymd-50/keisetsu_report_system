@@ -1,5 +1,6 @@
 package services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import actions.views.EmployeeConverter;
@@ -8,6 +9,7 @@ import actions.views.ReportConverter;
 import actions.views.ReportView;
 import constants.QueryConst;
 import models.Report;
+import models.validators.ReportValidator;
 
 public class ReportService extends ServiceBase {
 
@@ -115,6 +117,23 @@ public class ReportService extends ServiceBase {
                     .getFirstResult();
         }
         return count;
+    }
+
+    public List<String> create(ReportView rv) {
+        List<String> errors = ReportValidator.validate(rv);
+        if (errors.size() == 0) {
+            LocalDateTime now = LocalDateTime.now();
+            rv.setCreatedAt(now);
+            rv.setUpdatedAt(now);
+            createInternal(rv);
+        }
+        return errors;
+    }
+
+    private void createInternal(ReportView rv) {
+        em.getTransaction().begin();
+        em.persist(ReportConverter.toModel(rv));
+        em.getTransaction().commit();
     }
 
 }

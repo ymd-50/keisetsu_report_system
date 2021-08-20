@@ -10,6 +10,7 @@ import actions.views.EmployeeView;
 import actions.views.ReportView;
 import constants.AttributeConst;
 import constants.ForwardConst;
+import constants.MessageConst;
 import constants.QueryConst;
 import constants.TableConst;
 import services.ReportService;
@@ -73,7 +74,42 @@ public class ReportAction extends ActionBase {
     }
 
     public void create() throws ServletException, IOException {
+        if(checkToken()) {
+            EmployeeView ev = (EmployeeView)getSessionScope(AttributeConst.LOGIN_EMP);
 
+            ReportView rv = new ReportView(
+                    null,
+                    ev,
+                    toNumber(getRequestParam(AttributeConst.REP_LESSON_STYLE)),
+                    getReportDate(),
+                    toNumber(getRequestParam(AttributeConst.REP_CLASS_NUM)),
+                    getClassName(),
+                    toNumber(getRequestParam(AttributeConst.REP_GRADE)),
+                    getRequestParam(AttributeConst.REP_SUBJECT),
+                    getRequestParam(AttributeConst.REP_TITLE),
+                    getRequestParam(AttributeConst.REP_CONTENT),
+                    getRequestParam(AttributeConst.REP_ABSENTEE),
+                    null,
+                    null,
+                    TableConst.REP_UNREAD
+                    );
+
+            List<String> errors = reportService.create(rv);
+
+            if(errors.size() > 0) {
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.REPORT, rv);
+                putRequestScope(AttributeConst.ERR, errors);
+
+
+                forward(ForwardConst.FW_REP_NEW);
+            } else {
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_REGISTERED.getMessage());
+
+
+                redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
+            }
+        }
     }
 
     public void show() throws ServletException, IOException {
@@ -92,6 +128,34 @@ public class ReportAction extends ActionBase {
 
     }
 
+    private LocalDate getReportDate() {
+        LocalDate day;
+        if (getRequestParam(AttributeConst.REP_DATE) == null
+                || getRequestParam(AttributeConst.REP_DATE).equals("")) {
+            day = LocalDate.now();
+        } else {
+            day = LocalDate.parse(getRequestParam(AttributeConst.REP_DATE));
+        }
+        return day;
+    }
 
+    private String getClassName() {
+        int lessonStyle = toNumber(getRequestParam(AttributeConst.REP_LESSON_STYLE));
+
+        if(lessonStyle == TableConst.REP_GROUP) {
+            //授業報告の場合
+            return getRequestParam(AttributeConst.REP_CLASS_NAME);
+        } else {
+            //授業報告の場合
+            String school = getRequestParam(AttributeConst.REP_TEMP_SCHOOL);
+            String student = getRequestParam(AttributeConst.REP_TEMP_STUDENT);
+            if(school == null || school.equals("") || student == null || student.equals("")) {
+                //studentまたはschoolが空白の場合
+                return "ERROR";
+            }
+
+            return school + "/" + student;
+        }
+    }
 
 }

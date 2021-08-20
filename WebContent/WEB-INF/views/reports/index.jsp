@@ -47,12 +47,21 @@
                     <th class="report_action">操作</th>
                 </tr>
                 <c:forEach var="report" items="${reports}" varStatus="status">
-                    <fmt:parseDate value="${report.reportDate}" pattern="MM/dd" var="reportDay" type="date" />
+                    <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
 
                     <tr class="row${status.count % 2}">
                         <td class="report_date"><fmt:formatDate value='${reportDay}' pattern='MM/dd' /></td>
                         <td class="report_name"><c:out value="${report.employee.name}" /></td>
-                        <td class="report_lesson_style"><c:out value="${report.lessonStyle}" /></td>
+                        <td class="report_lesson_style">
+                            <c:choose>
+                                <c:when test="${report.lessonStyle == AttributeConst.GROUP.getIntegerValue()}">
+                                    授業
+                                </c:when>
+                                <c:otherwise>
+                                    個別
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
                         <td class="report_class_name"><c:out value="${report.className}" /></td>
                         <td class="report_title"><c:out value="${report.title}" /></td>
                         <td class="report_action"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
@@ -75,9 +84,15 @@
             </c:forEach>
         </div>
 
-        <p><a href="<c:url value='?action=${actRep}&command=${commNew}&lessonStyle=${AttributeConst.GROUP.getIntegerValue()}' />">授業報告 新規作成</a></p>
-        <p><a href="<c:url value='?action=${actRep}&command=${commNew}&lessonStyle=${AttributeConst.PERSONAL.getIntegerValue()}' />">個別報告 新規作成</a></p>
+        <c:choose>
+            <c:when test="${sessionScope.login_employee.workStyle == AttributeConst.FULL_TIME.getIntegerValue()}">
 
+            </c:when>
+            <c:otherwise>
+                <p><a href="<c:url value='?action=${actRep}&command=${commNew}&lessonStyle=${AttributeConst.GROUP.getIntegerValue()}' />">授業報告 新規作成</a></p>
+                <p><a href="<c:url value='?action=${actRep}&command=${commNew}&lessonStyle=${AttributeConst.PERSONAL.getIntegerValue()}' />">個別報告 新規作成</a></p>
+            </c:otherwise>
+        </c:choose>
 
     </c:param>
 </c:import>

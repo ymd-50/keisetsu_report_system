@@ -15,6 +15,9 @@ public enum AttributeConst {
     GRADE1(1),
     GRADE2(2),
     GRADE3(3),
+    CLASS1(1),
+    CLASS2(2),
+    CLASS3(3),
 
     READ(1),
     UNREAD(0),
@@ -39,16 +42,20 @@ public enum AttributeConst {
 
     REPORT("report"),
     REPORTS("reports"),
-    REP_COUNT("report_count"),
+    REP_COUNT("reports_count"),
     REP_LESSON_STYLE("lesson_style"),
     REP_DATE("report_date"),
     REP_GRADE("grade"),
+    REP_CLASS_NUM("class_number"),
     REP_CLASS_NAME("class_name"),
     REP_SUBJECT("subject"),
     REP_TITLE("title"),
     REP_CONTENT("content"),
     REP_ABSENTEE("absentee"),
     REP_ID("report_id"),
+
+    REP_TEMP_SCHOOL("school"),
+    REP_TEMP_STUDENT("student"),
 
 
     REP_ORDER_BY("order_by"),
