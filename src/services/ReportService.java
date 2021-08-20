@@ -92,12 +92,12 @@ public class ReportService extends ServiceBase {
         if(lessonStyle == Integer.MIN_VALUE) {
             //lessonStyleの指定が無い時
             count = (long)em.createNamedQuery(QueryConst.REP_COUNT, Long.class)
-                    .getFirstResult();
+                    .getSingleResult();
         } else {
             //lessonStyleの指定がある時
             count = (long)em.createNamedQuery(QueryConst.REP_COUNT_BY_LESSON_STYLE, Long.class)
                     .setParameter(QueryConst.PARAM_LESSON_STYLE, lessonStyle)
-                    .getFirstResult();
+                    .getSingleResult();
         }
         return count;
     }
@@ -108,13 +108,13 @@ public class ReportService extends ServiceBase {
             //lessonStyleの指定が無い時
             count = (long)em.createNamedQuery(QueryConst.REP_COUNT_BY_EMP, Long.class)
                     .setParameter(QueryConst.PARAM_EMP, EmployeeConverter.toModel(ev))
-                    .getFirstResult();
+                    .getSingleResult();
         } else {
             //lessonStyleの指定がある時
             count = (long)em.createNamedQuery(QueryConst.REP_COUNT_BY_LESSON_STYLE_AND_EMP, Long.class)
                     .setParameter(QueryConst.PARAM_EMP, EmployeeConverter.toModel(ev))
                     .setParameter(QueryConst.PARAM_LESSON_STYLE, lessonStyle)
-                    .getFirstResult();
+                    .getSingleResult();
         }
         return count;
     }
