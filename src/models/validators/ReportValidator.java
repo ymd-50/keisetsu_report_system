@@ -42,6 +42,11 @@ public class ReportValidator {
             errors.add(contentError);
         }
 
+        String absenteeError = validateAbsentee(rv.getAbsentee());
+        if(!absenteeError.equals("")) {
+            errors.add(absenteeError);
+        }
+
         return errors;
     }
 
@@ -106,6 +111,14 @@ public class ReportValidator {
     private static String validateContent(String content) {
         if(content == null || content.equals("")) {
             return MessageConst.E_NOCONTENT.getMessage();
+        }
+
+        return "";
+    }
+
+    private static String validateAbsentee(String absentee) {
+        if(absentee == null || absentee.equals("")) {
+            return MessageConst.E_NOABSENTEE.getMessage();
         }
 
         return "";

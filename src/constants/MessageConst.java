@@ -21,6 +21,7 @@ public enum MessageConst {
     E_NOCLASSNAME("クラス名または生徒名が未入力です"),
     E_NOSUBJECT("教科が未入力です"),
     E_NOTITLE("単元名が未入力です"),
+    E_NOABSENTEE("欠席者が未入力です")
     ;
 
     private final String text;

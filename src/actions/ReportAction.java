@@ -1,6 +1,7 @@
 package actions;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -58,7 +59,17 @@ public class ReportAction extends ActionBase {
     }
 
     public void entryNew() throws ServletException, IOException {
+        int lessonStyle = toNumber(getRequestParam(AttributeConst.REP_PARAM_LESSON_STYLE));
 
+        ReportView rv = new ReportView();
+
+        rv.setReportDate(LocalDate.now());
+        rv.setLessonStyle(lessonStyle);
+
+        putRequestScope(AttributeConst.TOKEN, getTokenId());
+        putRequestScope(AttributeConst.REPORT, rv);
+
+        forward(ForwardConst.FW_REP_NEW);
     }
 
     public void create() throws ServletException, IOException {
