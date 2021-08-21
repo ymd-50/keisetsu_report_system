@@ -129,7 +129,26 @@ public class ReportAction extends ActionBase {
     }
 
     public void edit() throws ServletException, IOException {
+        ReportView rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
+        if(rv == null || ev.getId() != rv.getEmployee().getId()) {
+            forward(ForwardConst.FW_ERR_UNK);
+        } else {
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
+            putRequestScope(AttributeConst.REPORT, rv);
+
+            if(rv.getLessonStyle() == TableConst.REP_PERSONAL) {
+                String school = separateSrash(0, rv.getClassName());
+                String student = separateSrash(1, rv.getClassName());
+
+                putRequestScope(AttributeConst.REP_TEMP_SCHOOL, school);
+                putRequestScope(AttributeConst.REP_TEMP_STUDENT, student);
+            }
+
+            forward(ForwardConst.FW_REP_EDIT);
+
+        }
     }
 
     public void update() throws ServletException, IOException {
@@ -168,6 +187,11 @@ public class ReportAction extends ActionBase {
 
             return school + "/" + student;
         }
+    }
+
+    private String separateSrash(int key, String body) {
+        String[] element = body.split("/");
+        return element[key];
     }
 
 }
