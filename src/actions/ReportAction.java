@@ -124,6 +124,7 @@ public class ReportAction extends ActionBase {
             forward(ForwardConst.FW_ERR_UNK);
         } else {
             putRequestScope(AttributeConst.REPORT, rv);
+            putRequestScope(AttributeConst.TOKEN, getTokenId());
             forward(ForwardConst.FW_REP_SHOW);
         }
     }
@@ -152,10 +153,51 @@ public class ReportAction extends ActionBase {
     }
 
     public void update() throws ServletException, IOException {
+        if(checkToken()) {
+            ReportView rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
 
+            rv.setReportDate(getReportDate());
+            rv.setClassNumber(toNumber(getRequestParam(AttributeConst.REP_CLASS_NUM)));
+            rv.setGrade(toNumber(getRequestParam(AttributeConst.REP_GRADE)));
+            rv.setClassName(getClassName());
+            rv.setSubject(getRequestParam(AttributeConst.REP_SUBJECT));
+            rv.setTitle(getRequestParam(AttributeConst.REP_TITLE));
+            rv.setContent(getRequestParam(AttributeConst.REP_CONTENT));
+            rv.setAbsentee(getRequestParam(AttributeConst.REP_ABSENTEE));
+
+            List<String> errors = reportService.update(rv);
+
+            if(errors.size() > 0) {
+                putRequestScope(AttributeConst.TOKEN, getTokenId());
+                putRequestScope(AttributeConst.REPORT, rv);
+                putRequestScope(AttributeConst.REP_TEMP_SCHOOL, getRequestParam(AttributeConst.REP_TEMP_SCHOOL));
+                putRequestScope(AttributeConst.REP_TEMP_STUDENT, getRequestParam(AttributeConst.REP_TEMP_STUDENT));
+                putRequestScope(AttributeConst.ERR, errors);
+
+                forward(ForwardConst.FW_REP_EDIT);
+
+            } else {
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+
+                redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
+            }
+        }
     }
 
+
     public void destroy() throws ServletException, IOException {
+        if(checkToken()) {
+            ReportView rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+
+            if(rv == null || ev.getId() != rv.getEmployee().getId()) {
+                forward(ForwardConst.FW_ERR_UNK);
+            } else {
+                reportService.destroy(rv);
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_DESTROID.getMessage());
+                redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
+            }
+        }
 
     }
 

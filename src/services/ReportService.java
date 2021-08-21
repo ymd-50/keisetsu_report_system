@@ -145,4 +145,30 @@ public class ReportService extends ServiceBase {
         return r;
     }
 
+    public List<String> update(ReportView rv) {
+        List<String> errors = ReportValidator.validate(rv);
+
+        if(errors.size() == 0) {
+            LocalDateTime now = LocalDateTime.now();
+            rv.setUpdatedAt(now);
+
+            updateInternal(rv);
+        }
+        return errors;
+    }
+
+    private void updateInternal(ReportView rv) {
+        em.getTransaction().begin();
+        Report r = findOneInternal(rv.getId());
+        ReportConverter.copyViewtoModel(r, rv);
+        em.getTransaction().commit();
+    }
+
+    public void destroy(ReportView rv) {
+        em.getTransaction().begin();
+        Report report = em.find(Report.class, rv.getId());
+        em.remove(report);
+        em.getTransaction().commit();
+    }
+
 }
