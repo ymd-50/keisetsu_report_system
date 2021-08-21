@@ -11,8 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import constants.QueryConst;
 import constants.TableConst;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +23,10 @@ import lombok.Setter;
 
 @Table(name = TableConst.TABLE_COM)
 @NamedQueries({
-
+    @NamedQuery(
+            name = QueryConst.COM_GET_BY_REP_ID,
+            query = QueryConst.COM_GET_BY_REP_ID_DEF
+            )
 })
 @Getter
 @Setter

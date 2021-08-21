@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import models.Employee;
-import models.Report;
 
 @Getter
 @Setter
@@ -16,9 +14,9 @@ import models.Report;
 public class CommentView {
     private Integer id;
 
-    private Employee employee;
+    private EmployeeView employee;
 
-    private Report report;
+    private ReportView report;
 
     private String content;
 

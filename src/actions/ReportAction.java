@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import actions.views.CommentView;
 import actions.views.EmployeeView;
 import actions.views.ReportView;
 import constants.AttributeConst;
@@ -117,14 +118,39 @@ public class ReportAction extends ActionBase {
     }
 
     public void show() throws ServletException, IOException {
-        System.out.println("showCommand!!");
-        ReportView rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        ReportView rv;
+        if(getSessionScope(AttributeConst.REP_ID) == null) {
+            //index.jspからのアクセス
+            rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        } else {
+            //CommentAction.create()からのリダイレクト
+            rv = reportService.findOne(getSessionScope(AttributeConst.REP_ID));
+        }
+        /*String reportId = getSessionScope(AttributeConst.REP_ID).toString();
+        removeSessionScope(AttributeConst.REP_ID);
+
+        ReportView rv;
+        if(reportId == null) {
+            //index.jspからのアクセス
+            rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        } else {
+            //CommentAction.create()からのリダイレクト
+            rv = reportService.findOne(toNumber(reportId));
+        }*/
 
         if(rv == null) {
             forward(ForwardConst.FW_ERR_UNK);
         } else {
             putRequestScope(AttributeConst.REPORT, rv);
             putRequestScope(AttributeConst.TOKEN, getTokenId());
+            putRequestScope(AttributeConst.COMMENT, new CommentView());
+
+            String flush = getSessionScope(AttributeConst.FLUSH);
+            if (flush != null) {
+                putRequestScope(AttributeConst.FLUSH, flush);
+                removeSessionScope(AttributeConst.FLUSH);
+            }
+
             forward(ForwardConst.FW_REP_SHOW);
         }
     }

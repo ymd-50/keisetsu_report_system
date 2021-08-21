@@ -59,7 +59,12 @@ public enum AttributeConst {
 
 
     REP_ORDER_BY("order_by"),
-    REP_PARAM_LESSON_STYLE("lessonStyle")
+    REP_PARAM_LESSON_STYLE("lessonStyle"),
+
+    COMMENT("comment"),
+    COMMENTS("comments"),
+    COM_ID("id"),
+    COM_CONTENT("content")
 
 
     ;

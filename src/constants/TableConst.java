@@ -59,7 +59,7 @@ public interface TableConst {
     String COM_UPDATED_AT = "updated_at";
     String COM_READ_FLAG = "read_flag";
 
-    int COM_READE = 0;
-    int COM_UNREAD = 1;
+    int COM_READE = 1;
+    int COM_UNREAD = 0;
 
 }

@@ -6,6 +6,7 @@ public enum MessageConst {
     I_DESTROID("削除完了しました"),
     I_LOGINED("ログインしました"),
     I_LOGOUT("ログアウトしました"),
+    I_COMMENTED("コメント書き込みました"),
 
     //バリデーション
     E_NONAME("氏名が未入力です"),
@@ -22,7 +23,8 @@ public enum MessageConst {
     E_NOSUBJECT("教科が未入力です"),
     E_NOTITLE("単元名が未入力です"),
     E_NOABSENTEE("欠席者が未入力です"),
-    E_NOSCHOOL_OR_NOSTYDENT("学校名または生徒名が未入力です")
+    E_NOSCHOOL_OR_NOSTYDENT("学校名または生徒名が未入力です"),
+    E_NOCOMMENT("コメントが未入力です")
     ;
 
     private final String text;

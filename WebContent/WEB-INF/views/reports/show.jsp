@@ -5,12 +5,20 @@
 <%@ page import="constants.AttributeConst" %>
 
 <c:set var="actRep" value="${ForwardConst.ACT_REP.getValue()}" />
+<c:set var="actCom" value="${ForwardConst.ACT_COM.getValue()}" />
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commEdt" value="${ForwardConst.CMD_EDIT.getValue()}" />
 <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
+<c:set var="commCrt" value="${ForwardConst.CMD_CREATE.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
+        <c:if test="${flush != null}">
+            <div id="flush_success">
+                <c:out value="${flush}"></c:out>
+            </div>
+        </c:if>
+
         <c:choose>
             <c:when test="${report.lessonStyle == AttributeConst.GROUP.getIntegerValue()}">
                 <h2>授業報告 詳細</h2>
@@ -99,9 +107,11 @@
             <p>
                 <a href="<c:url value='?action=${actRep}&command=${commEdt}&id=${report.id}' />">この日報を編集する</a>
             </p>
-
-
         </c:if>
+
+        <form  method="POST" action="<c:url value='?action=${actCom}&command=${commCrt}&id=${report.id}' />">
+            <c:import url="../comments/_form.jsp"/>
+        </form>
 
         <p>
             <a href="<c:url value='?action=${actRep}&command=${commIdx}' />">一覧に戻る</a>

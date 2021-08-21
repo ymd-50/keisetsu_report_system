@@ -90,5 +90,5 @@ public interface QueryConst {
      */
     //reportIdパラメータと一致するコメントを取得
     String COM_GET_BY_REP_ID = ENTITY_COM + ".getByReportId";
-    String COM_GET_BY_REP_ID_DEF = "select c from Comment as c where c.reportId = :" + PARAM_REP_ID;
+    String COM_GET_BY_REP_ID_DEF = "select c from Comment as c where c.report = :" + PARAM_REP_ID;
 }
