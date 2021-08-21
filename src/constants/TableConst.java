@@ -52,7 +52,7 @@ public interface TableConst {
     String TABLE_COM = "comments";
     //カラム
     String COM_ID = "id";
-    String COM_WRITER_ID = "writer_id";
+    String COM_EMP_ID = "employee_id";
     String COM_REP_ID = "report_id";
     String COM_CONTENT = "content";
     String COM_CREATED_AT= "created_at";
