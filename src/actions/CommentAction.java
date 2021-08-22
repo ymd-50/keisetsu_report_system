@@ -59,7 +59,21 @@ public class CommentAction extends ActionBase {
     }
 
     public void destroy() throws ServletException, IOException{
+        if(checkToken()) {
+            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            CommentView cv = commentService.findOne(toNumber(getRequestParam(AttributeConst.COM_ID)));
 
+            if(cv == null || cv.getEmployee().getId() != ev.getId()) {
+                forward(ForwardConst.FW_ERR_UNK);
+            } else {
+                commentService.destroy(cv);
+
+                putSessionScope(AttributeConst.FLUSH, MessageConst.I_DESTROID.getMessage());
+                putSessionScope(AttributeConst.SE_REP_ID, cv.getReport().getId());
+
+                redirect(ForwardConst.ACT_REP, ForwardConst.CMD_SHOW);
+            }
+        }
     }
 
 }

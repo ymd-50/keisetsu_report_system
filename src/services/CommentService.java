@@ -37,4 +37,22 @@ public class CommentService extends ServiceBase {
         return CommentConverter.toViewList(comments);
     }
 
+    public CommentView findOne(int id) {
+        return CommentConverter.toView(findOneInternal(id));
+    }
+
+    private Comment findOneInternal(int id) {
+        Comment c = em.find(Comment.class, id);
+        return c;
+    }
+
+    public void destroy(CommentView cv) {
+        em.getTransaction().begin();
+        Comment c = em.find(Comment.class, cv.getId());
+        em.remove(c);
+        em.getTransaction().commit();
+    }
+
+
+
 }
