@@ -14,15 +14,19 @@ import constants.ForwardConst;
 import constants.MessageConst;
 import constants.QueryConst;
 import constants.TableConst;
+import services.CommentService;
 import services.ReportService;
 
 public class ReportAction extends ActionBase {
     private ReportService reportService;
+    private CommentService commentService;
 
     @Override
     public void process() throws ServletException, IOException {
         reportService = new ReportService();
+        commentService = new CommentService();
         doCommand();
+        commentService.close();
         reportService.close();
     }
 
@@ -119,24 +123,14 @@ public class ReportAction extends ActionBase {
 
     public void show() throws ServletException, IOException {
         ReportView rv;
-        if(getSessionScope(AttributeConst.REP_ID) == null) {
+        if(getSessionScope(AttributeConst.SE_REP_ID) == null) {
             //index.jspからのアクセス
             rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
         } else {
             //CommentAction.create()からのリダイレクト
-            rv = reportService.findOne(getSessionScope(AttributeConst.REP_ID));
+            rv = reportService.findOne(getSessionScope(AttributeConst.SE_REP_ID));
         }
-        /*String reportId = getSessionScope(AttributeConst.REP_ID).toString();
-        removeSessionScope(AttributeConst.REP_ID);
-
-        ReportView rv;
-        if(reportId == null) {
-            //index.jspからのアクセス
-            rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
-        } else {
-            //CommentAction.create()からのリダイレクト
-            rv = reportService.findOne(toNumber(reportId));
-        }*/
+        removeSessionScope(AttributeConst.SE_REP_ID);
 
         if(rv == null) {
             forward(ForwardConst.FW_ERR_UNK);
@@ -144,6 +138,10 @@ public class ReportAction extends ActionBase {
             putRequestScope(AttributeConst.REPORT, rv);
             putRequestScope(AttributeConst.TOKEN, getTokenId());
             putRequestScope(AttributeConst.COMMENT, new CommentView());
+
+            //コメントを送る
+            List<CommentView> comments = commentService.getComments(rv);
+            putRequestScope(AttributeConst.COMMENTS, comments);
 
             String flush = getSessionScope(AttributeConst.FLUSH);
             if (flush != null) {

@@ -14,6 +14,7 @@ public interface QueryConst {
     String PARAM_WORK_STYLE = "workStyle";
     String PARAM_LESSON_STYLE = "lessonStyle";
     String PARAM_EMP = "employee";
+    String PARAM_REP = "report";
 
     int ROW_PER_PAGE = 15;
 
@@ -90,5 +91,5 @@ public interface QueryConst {
      */
     //reportIdパラメータと一致するコメントを取得
     String COM_GET_BY_REP_ID = ENTITY_COM + ".getByReportId";
-    String COM_GET_BY_REP_ID_DEF = "select c from Comment as c where c.report = :" + PARAM_REP_ID;
+    String COM_GET_BY_REP_ID_DEF = "select c from Comment as c where c.report = :" + PARAM_REP;
 }

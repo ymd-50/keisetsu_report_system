@@ -109,7 +109,29 @@
             </p>
         </c:if>
 
-        <form  method="POST" action="<c:url value='?action=${actCom}&command=${commCrt}&id=${report.id}' />">
+        <c:set var="actCom" value="${ForwardConst.ACT_COM.getValue()}" />
+        <c:set var="commDel" value="${ForwardConst.CMD_DESTROY.getValue()}" />
+
+        <c:forEach var="comment" items="${comments}">
+            <c:out value="${comment.employee.name}"/><br>
+            <pre><c:out value="${comment.content}"/></pre><br>
+
+            <c:if test="${sessionScope.login_employee.id == comment.employee.id}">
+                <a href="<c:url value='?action=${actCom}&command=${commDel}&id=${comment.id}' />">
+                    このコメントを削除する
+                </a>
+                <br><br>
+            </c:if>
+
+        </c:forEach>
+
+        <c:if test="${errors != null}">
+            <div id="flush_error">
+                <c:out value="${errors}" /><br />
+            </div>
+        </c:if>
+
+        <form  method="POST" action="<c:url value='?action=${actCom}&command=${commCrt}' />">
             <c:import url="../comments/_form.jsp"/>
         </form>
 

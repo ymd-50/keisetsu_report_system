@@ -51,7 +51,7 @@ public class CommentAction extends ActionBase {
                 forward(ForwardConst.FW_REP_SHOW);
             } else {
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_COMMENTED.getMessage());
-                putSessionScope(AttributeConst.REP_ID, reportId);
+                putSessionScope(AttributeConst.SE_REP_ID, reportId);
 
                 redirect(ForwardConst.ACT_REP, ForwardConst.CMD_SHOW);
             }
