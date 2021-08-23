@@ -59,7 +59,7 @@
                                     ●
                                 </c:when>
                                 <c:otherwise>
-                                    〇
+                                    &emsp;
                                 </c:otherwise>
                             </c:choose>
                             <fmt:formatDate value='${reportDay}' pattern='MM/dd' />
