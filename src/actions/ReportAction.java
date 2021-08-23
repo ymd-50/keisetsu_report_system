@@ -232,7 +232,15 @@ public class ReportAction extends ActionBase {
     }
 
     public void unread() throws ServletException, IOException {
+        ReportView rv = reportService.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
+        EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
+        if(rv == null || ev.getId() == rv.getEmployee().getId()) {
+            forward(ForwardConst.FW_ERR_UNK);
+        } else {
+            reportService.checkUnread(rv);
+            redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
+        }
     }
 
     private LocalDate getReportDate() {

@@ -177,4 +177,9 @@ public class ReportService extends ServiceBase {
         updateInternal(rv);
     }
 
+    public void checkUnread(ReportView rv) {
+        rv.setReadFlag(TableConst.COM_UNREAD);
+        updateInternal(rv);
+    }
+
 }

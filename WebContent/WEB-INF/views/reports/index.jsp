@@ -81,7 +81,7 @@
                         <td class="report_title"><c:out value="${report.title}" /></td>
                         <td class="report_action">
                             <a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a>
-                            <c:if test="${sessionScope.login_employee.id != report.employee.id}">
+                            <c:if test="${sessionScope.login_employee.id != report.employee.id && report.readFlag == AttributeConst.READ.getIntegerValue()}">
                                 <a href="<c:url value='?action=${actRep}&command=${commUnread}&id=${report.id}' />">未読にする</a>
                             </c:if>
                         </td>
