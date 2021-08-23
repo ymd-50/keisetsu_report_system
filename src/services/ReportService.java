@@ -8,6 +8,7 @@ import actions.views.EmployeeView;
 import actions.views.ReportConverter;
 import actions.views.ReportView;
 import constants.QueryConst;
+import constants.TableConst;
 import models.Report;
 import models.validators.ReportValidator;
 
@@ -169,6 +170,11 @@ public class ReportService extends ServiceBase {
         Report report = em.find(Report.class, rv.getId());
         em.remove(report);
         em.getTransaction().commit();
+    }
+
+    public void checkRead(ReportView rv) {
+        rv.setReadFlag(TableConst.COM_READE);
+        updateInternal(rv);
     }
 
 }

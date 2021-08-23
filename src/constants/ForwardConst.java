@@ -19,6 +19,7 @@ public enum ForwardConst {
     CMD_EDIT("edit"),
     CMD_UPDATE("update"),
     CMD_DESTROY("destroy"),
+    CMD_UNREAD("unread"),
 
 
     FW_ERR_UNK("errors/unknown"),

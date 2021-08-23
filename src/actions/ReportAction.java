@@ -135,6 +135,12 @@ public class ReportAction extends ActionBase {
         if(rv == null) {
             forward(ForwardConst.FW_ERR_UNK);
         } else {
+            EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
+            if(ev.getId() != rv.getEmployee().getId()) {
+                //投稿者以外の人が閲覧した場合既読にする
+                reportService.checkRead(rv);
+            }
+
             putRequestScope(AttributeConst.REPORT, rv);
             putRequestScope(AttributeConst.TOKEN, getTokenId());
             putRequestScope(AttributeConst.COMMENT, new CommentView());
@@ -222,6 +228,10 @@ public class ReportAction extends ActionBase {
                 redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
             }
         }
+
+    }
+
+    public void unread() throws ServletException, IOException {
 
     }
 

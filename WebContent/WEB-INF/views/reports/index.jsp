@@ -9,6 +9,7 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
+<c:set var="commUnread" value="${ForwardConst.CMD_UNREAD.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -40,7 +41,9 @@
             <tbody>
                 <tr>
                     <th class="report_date">日付</th>
-                    <th class="report_name">講師名</th>
+                    <c:if test="${sessionScope.login_employee.workStyle == AttributeConst.FULL_TIME.getIntegerValue()}">
+                        <th class="report_name">講師名</th>
+                    </c:if>
                     <th class="report_lesson_style">指導形態</th>
                     <th class="report_class_name">クラス,生徒名</th>
                     <th class="report_title">単元名</th>
@@ -50,8 +53,20 @@
                     <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
 
                     <tr class="row${status.count % 2}">
-                        <td class="report_date"><fmt:formatDate value='${reportDay}' pattern='MM/dd' /></td>
-                        <td class="report_name"><c:out value="${report.employee.name}" /></td>
+                        <td class="report_date">
+                            <c:choose>
+                                <c:when test="${report.readFlag == AttributeConst.UNREAD.getIntegerValue()}">
+                                    ●
+                                </c:when>
+                                <c:otherwise>
+                                    〇
+                                </c:otherwise>
+                            </c:choose>
+                            <fmt:formatDate value='${reportDay}' pattern='MM/dd' />
+                        </td>
+                        <c:if test="${sessionScope.login_employee.workStyle == AttributeConst.FULL_TIME.getIntegerValue()}">
+                            <td class="report_name"><c:out value="${report.employee.name}" /></td>
+                        </c:if>
                         <td class="report_lesson_style">
                             <c:choose>
                                 <c:when test="${report.lessonStyle == AttributeConst.GROUP.getIntegerValue()}">
@@ -64,7 +79,12 @@
                         </td>
                         <td class="report_class_name"><c:out value="${report.className}" /></td>
                         <td class="report_title"><c:out value="${report.title}" /></td>
-                        <td class="report_action"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
+                        <td class="report_action">
+                            <a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a>
+                            <c:if test="${sessionScope.login_employee.id != report.employee.id}">
+                                <a href="<c:url value='?action=${actRep}&command=${commUnread}&id=${report.id}' />">未読にする</a>
+                            </c:if>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
