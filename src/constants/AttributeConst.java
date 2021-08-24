@@ -22,6 +22,7 @@ public enum AttributeConst {
     READ(1),
     UNREAD(0),
 
+
     FLUSH("flush"),
     TOKEN("_token"),
     PAGE("page"),

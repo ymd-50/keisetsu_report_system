@@ -54,6 +54,10 @@ public class ReportAction extends ActionBase {
         putRequestScope(AttributeConst.PAGE, page);
         putRequestScope(AttributeConst.MAX_ROW, QueryConst.ROW_PER_PAGE);
 
+        //絞り込みの内容を送る
+        putRequestScope(AttributeConst.REP_LESSON_STYLE, lessonStyle);
+        putRequestScope(AttributeConst.REP_ORDER_BY, orderBy);
+
         String flush = getSessionScope(AttributeConst.FLUSH);
         if (flush != null) {
             putRequestScope(AttributeConst.FLUSH, flush);
@@ -194,6 +198,8 @@ public class ReportAction extends ActionBase {
             rv.setTitle(getRequestParam(AttributeConst.REP_TITLE));
             rv.setContent(getRequestParam(AttributeConst.REP_CONTENT));
             rv.setAbsentee(getRequestParam(AttributeConst.REP_ABSENTEE));
+            //更新後は未読状態にする
+            rv.setReadFlag(TableConst.REP_UNREAD);
 
             List<String> errors = reportService.update(rv);
 

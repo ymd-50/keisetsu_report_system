@@ -23,14 +23,24 @@
 
         <form method="post" action="<c:url value='?action=${actRep}&command=${commIdx}' />">
             <p>絞り込み<br>
-            <input type="radio" name="${AttributeConst.REP_LESSON_STYLE.getValue()}" value=""  checked="checked"> すべて
-            <input type="radio" name="${AttributeConst.REP_LESSON_STYLE.getValue()}" value="${AttributeConst.GROUP.getIntegerValue()}" > 授業のみ
-            <input type="radio" name="${AttributeConst.REP_LESSON_STYLE.getValue()}" value="${AttributeConst.PERSONAL.getIntegerValue()}"  > 個別のみ
+            <input type="radio" name="${AttributeConst.REP_LESSON_STYLE.getValue()}" value=""
+                <c:if test="${lesson_style != AttributeConst.GROUP.getIntegerValue() && lesson_style != AttributeConst.PERSONAL.getIntegerValue()}">checked="checked"</c:if>
+                > すべて
+            <input type="radio" name="${AttributeConst.REP_LESSON_STYLE.getValue()}" value="${AttributeConst.GROUP.getIntegerValue()}"
+                <c:if test="${lesson_style == AttributeConst.GROUP.getIntegerValue()}">checked="checked"</c:if>
+                > 授業のみ
+            <input type="radio" name="${AttributeConst.REP_LESSON_STYLE.getValue()}" value="${AttributeConst.PERSONAL.getIntegerValue()}"
+                <c:if test="${lesson_style == AttributeConst.PERSONAL.getIntegerValue()}">checked="checked"</c:if>
+                > 個別のみ
             </p>
 
             <p>
-            <input type="radio" name="${AttributeConst.REP_ORDER_BY.getValue()}" value="${AttributeConst.ORDER_BY_REP_DATE.getIntegerValue()}"  checked="checked"> 授業日時順
-            <input type="radio" name="${AttributeConst.REP_ORDER_BY.getValue()}" value="${AttributeConst.ORDER_BY_UPDATE.getIntegerValue()}" > 最終更新日時順
+            <input type="radio" name="${AttributeConst.REP_ORDER_BY.getValue()}" value="${AttributeConst.ORDER_BY_REP_DATE.getIntegerValue()}"
+            <c:if test="${order_by != AttributeConst.ORDER_BY_UPDATE.getIntegerValue()}">checked="checked"</c:if>
+            > 授業日時順
+            <input type="radio" name="${AttributeConst.REP_ORDER_BY.getValue()}" value="${AttributeConst.ORDER_BY_UPDATE.getIntegerValue()}"
+            <c:if test="${order_by == AttributeConst.ORDER_BY_UPDATE.getIntegerValue()}">checked="checked"</c:if>
+            > 最終更新日時順
             </p>
 
 
@@ -98,7 +108,7 @@
                         <c:out value="${i}" />&nbsp;
                     </c:when>
                     <c:otherwise>
-                        <a href="<c:url value='?action=${actRep}&command=${commIdx}&page=${i}' />"><c:out value="${i}" /></a>&nbsp;
+                        <a href="<c:url value='?action=${actRep}&command=${commIdx}&page=${i}&order_by=${order_by}&lesson_style=${lesson_style}' />"><c:out value="${i}" /></a>&nbsp;
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
@@ -116,3 +126,4 @@
 
     </c:param>
 </c:import>
+
