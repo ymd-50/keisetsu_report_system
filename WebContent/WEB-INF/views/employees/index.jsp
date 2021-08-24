@@ -20,9 +20,15 @@
 
         <form method="post" action="<c:url value='?action=${actEmp}&command=${commIdx}' />">
             <p>絞り込み<br>
-            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value="" checked> すべて
-            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value="${AttributeConst.FULL_TIME.getIntegerValue()}" > 常勤のみ
-            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value="${AttributeConst.PART_TIME.getIntegerValue()}"  > 非常勤のみ
+            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value=""
+            <c:if test="${work_style != AttributeConst.FULL_TIME.getIntegerValue() && work_style != AttributeConst.PART_TIME.getIntegerValue()}">checked="checked"</c:if>
+            > すべて
+            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value="${AttributeConst.FULL_TIME.getIntegerValue()}"
+            <c:if test="${work_style == AttributeConst.FULL_TIME.getIntegerValue()}">checked="checked"</c:if>
+            > 常勤のみ
+            <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value="${AttributeConst.PART_TIME.getIntegerValue()}"
+            <c:if test="${work_style == AttributeConst.PART_TIME.getIntegerValue()}">checked="checked"</c:if>
+            > 非常勤のみ
             </p>
 
             <p><input type="submit" value="表示"></p>
@@ -83,7 +89,7 @@
                         <c:out value="${i}" />&nbsp;
                     </c:when>
                     <c:otherwise>
-                        <a href="<c:url value='?action=${actEmp}&command=${commIdx}&page=${i}' />"><c:out value="${i}" /></a>&nbsp;
+                        <a href="<c:url value='?action=${actEmp}&command=${commIdx}&page=${i}&work_style=${work_style}' />"><c:out value="${i}" /></a>&nbsp;
                     </c:otherwise>
                 </c:choose>
             </c:forEach>

@@ -48,6 +48,8 @@ public class EmployeeAction extends ActionBase {
         putRequestScope(AttributeConst.EMP_COUNT, employeeCount);
         putRequestScope(AttributeConst.PAGE, page);
         putRequestScope(AttributeConst.MAX_ROW, QueryConst.ROW_PER_PAGE);
+        //絞り込み検索の条件を送る
+        putRequestScope(AttributeConst.EMP_WORK_STYLE, workStyle);
 
         String flush = getSessionScope(AttributeConst.FLUSH);
         if (flush != null) {
