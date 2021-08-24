@@ -18,7 +18,7 @@ public class ReportService extends ServiceBase {
         List<Report> reports;
         if(lessonStyle == Integer.MIN_VALUE) {
             //lessonStyleの指定が無い時
-            if(orderBy == QueryConst.ORDER_BY_REP_DATE) {
+            if(orderBy == QueryConst.ORDER_BY_REP_DATE || orderBy == Integer.MIN_VALUE) {
                 reports = em.createNamedQuery(QueryConst.REP_GET_BY_EMP_ORDER_BY_REP_DATE, Report.class)
                         .setParameter(QueryConst.PARAM_EMP, EmployeeConverter.toModel(ev))
                         .setFirstResult(QueryConst.ROW_PER_PAGE * (page - 1))
@@ -33,7 +33,7 @@ public class ReportService extends ServiceBase {
             }
         } else {
             //lessonStyleの指定がある時
-            if(orderBy == QueryConst.ORDER_BY_REP_DATE) {
+            if(orderBy == QueryConst.ORDER_BY_REP_DATE || orderBy == Integer.MIN_VALUE) {
                 reports = em.createNamedQuery(QueryConst.REP_GET_BY_LESSON_STYLE_AND_EMP_ORDER_BY_REP_DATE, Report.class)
                         .setParameter(QueryConst.PARAM_EMP, EmployeeConverter.toModel(ev))
                         .setParameter(QueryConst.PARAM_LESSON_STYLE, lessonStyle)
@@ -57,7 +57,7 @@ public class ReportService extends ServiceBase {
         List<Report> reports;
         if(lessonStyle == Integer.MIN_VALUE) {
             //lessonStyleの指定が無い時
-            if(orderBy == QueryConst.ORDER_BY_REP_DATE) {
+            if(orderBy == QueryConst.ORDER_BY_REP_DATE || orderBy == Integer.MIN_VALUE) {
                 reports = em.createNamedQuery(QueryConst.REP_GET_ALL_ORDER_BY_REP_DATE, Report.class)
                         .setFirstResult(QueryConst.ROW_PER_PAGE * (page - 1))
                         .setMaxResults(QueryConst.ROW_PER_PAGE)
@@ -70,7 +70,7 @@ public class ReportService extends ServiceBase {
             }
         } else {
             //lessonStyleの指定がある時
-            if(orderBy == QueryConst.ORDER_BY_REP_DATE) {
+            if(orderBy == QueryConst.ORDER_BY_REP_DATE || orderBy == Integer.MIN_VALUE) {
                 reports = em.createNamedQuery(QueryConst.REP_GET_BY_LESSON_STYLE_ORDER_BY_REP_DATE, Report.class)
                         .setParameter(QueryConst.PARAM_LESSON_STYLE, lessonStyle)
                         .setFirstResult(QueryConst.ROW_PER_PAGE * (page - 1))
