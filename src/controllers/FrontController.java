@@ -32,6 +32,7 @@ public class FrontController extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
         ActionBase action = getAction(request, response);
         action.init(getServletContext(), request, response);
         action.process();

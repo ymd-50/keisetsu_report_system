@@ -5,7 +5,7 @@
 
 <c:if test="${errors != null}">
     <div id="flush_error">
-        入力内容にエラーがあります。<br />
+        &#215;&emsp;入力内容にエラーがあります。<br />
         <c:forEach var="error" items="${errors}">
             ・<c:out value="${error}" /><br />
         </c:forEach>
@@ -20,17 +20,29 @@
 
 <p>コマ数<br />
 <select name="${AttributeConst.REP_CLASS_NUM.getValue()}" size="1">
-    <option value="${AttributeConst.CLASS1.getIntegerValue()}">1コマ目</option>
-    <option value="${AttributeConst.CLASS2.getIntegerValue()}">2コマ目</option>
-    <option value="${AttributeConst.CLASS3.getIntegerValue()}">3コマ目</option>
+    <option value="${AttributeConst.CLASS1.getIntegerValue()}"
+    <c:if test="${report.classNumber == AttributeConst.CLASS1.getIntegerValue()}">selected</c:if>
+    >1コマ目</option>
+    <option value="${AttributeConst.CLASS2.getIntegerValue()}"
+    <c:if test="${report.classNumber == AttributeConst.CLASS2.getIntegerValue()}">selected</c:if>
+    >2コマ目</option>
+    <option value="${AttributeConst.CLASS3.getIntegerValue()}"
+    <c:if test="${report.classNumber == AttributeConst.CLASS3.getIntegerValue()}">selected</c:if>
+    >3コマ目</option>
 </select></p>
 <br /><br />
 
 <p>学年<br />
 <select name="${AttributeConst.REP_GRADE.getValue()}" size="1">
-    <option value="${AttributeConst.GRADE1.getIntegerValue()}">高校1年</option>
-    <option value="${AttributeConst.GRADE2.getIntegerValue()}">高校2年</option>
-    <option value="${AttributeConst.GRADE3.getIntegerValue()}">高校3年</option>
+    <option value="${AttributeConst.GRADE1.getIntegerValue()}"
+    <c:if test="${report.grade == AttributeConst.GRADE1.getIntegerValue()}">selected</c:if>
+    >高校1年</option>
+    <option value="${AttributeConst.GRADE2.getIntegerValue()}"
+    <c:if test="${report.grade == AttributeConst.GRADE2.getIntegerValue()}">selected</c:if>
+    >高校2年</option>
+    <option value="${AttributeConst.GRADE3.getIntegerValue()}"
+    <c:if test="${report.grade == AttributeConst.GRADE3.getIntegerValue()}">selected</c:if>
+    >高校3年</option>
 </select></p>
 <br /><br />
 
@@ -65,7 +77,7 @@
 <c:choose>
     <c:when test="${report.lessonStyle == AttributeConst.GROUP.getIntegerValue()}">
         <label for="${AttributeConst.REP_CONTENT.getValue()}">欠席者</label><br />
-        <textarea name="${AttributeConst.REP_ABSENTEE.getValue()}" rows="10" cols="50"><c:out value="${report.absentee}"/></textarea>
+        <textarea name="${AttributeConst.REP_ABSENTEE.getValue()}" rows="5" cols="50"><c:out value="${report.absentee}"/></textarea>
         <br /><br />
     </c:when>
     <c:otherwise>

@@ -11,13 +11,13 @@
 
         <c:if test="${errors != null}">
             <div id="flush_error">
-                <c:out value="${errors}"/>
+                &#215;&emsp;<c:out value="${errors}"/>
             </div>
         </c:if>
 
         <c:if test="${flush != null}">
             <div id="flush_success">
-                <c:out value="${flush}"/>
+                &#10004;&emsp;<c:out value="${flush}"/>
             </div>
         </c:if>
 

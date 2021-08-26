@@ -12,12 +12,13 @@
     <c:param name="content">
         <c:if test="${flush != null}">
             <div id="flush_success">
-                <c:out value="${flush}"></c:out>
+                &#10004;&emsp;<c:out value="${flush}"></c:out>
             </div>
         </c:if>
 
         <h2>講師 一覧</h2>
 
+        <div id="sort_menu">
         <form method="post" action="<c:url value='?action=${actEmp}&command=${commIdx}' />">
             <p>絞り込み<br>
             <input type="radio" name="${AttributeConst.EMP_WORK_STYLE.getValue()}" value=""
@@ -31,8 +32,9 @@
             > 非常勤のみ
             </p>
 
-            <p><input type="submit" value="表示"></p>
+            <p><input class="btn_blue" type="submit" value="表示"></p>
         </form>
+        </div><br>
 
 
         <table id="employee_list">
@@ -82,7 +84,7 @@
         </table>
 
         <div id="pagination">
-            （全 ${employees_count} 件）<br />
+            （全 ${employees_count} 件）<br />&nbsp;
             <c:forEach var="i" begin="1" end="${((employees_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">

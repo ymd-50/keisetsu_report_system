@@ -16,7 +16,7 @@
     <c:param name="content">
         <c:if test="${flush != null}">
             <div id="flush_success">
-                <c:out value="${flush}"></c:out>
+                &#10004;&emsp;<c:out value="${flush}"></c:out>
             </div>
         </c:if>
 
@@ -111,21 +111,25 @@
         </c:if>
 
 
-
+        <div id="comment_index">
         <c:forEach var="comment" items="${comments}">
-            <c:out value="${comment.employee.name}"/><br>
+            <div id="comment">
+            <span id="comment_name"><c:out value="${comment.employee.name}"/></span><br>
             <pre><c:out value="${comment.content}"/></pre><br>
+            </div>
 
             <c:if test="${sessionScope.login_employee.id == comment.employee.id}">
                 <form method="POST" action="<c:url value='?action=${actCom}&command=${commDel}&id=${comment.id}' />">
                     <input type="hidden" name="${AttributeConst.TOKEN.getValue()}" value="${_token}" />
-                    <button type="submit">このコメントを削除する</button>
+                    <button type="submit">削除</button>
                 </form>
-                <br><br>
+
             </c:if>
 
         </c:forEach>
+        </div>
 
+        <br><br>
 
         <form  method="POST" action="<c:url value='?action=${actCom}&command=${commCrt}' />">
             <c:import url="../comments/_form.jsp"/>

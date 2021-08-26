@@ -15,14 +15,15 @@
     <c:param name="content">
         <c:if test="${flush != null}">
             <div id="flush_success">
-                <c:out value="${flush}"></c:out>
+                &#10004;&emsp;<c:out value="${flush}"></c:out>
             </div>
         </c:if>
 
         <h2>指導報告 一覧</h2>
-
+        <div id="sort_menu">
         <form method="post" action="<c:url value='?action=${actRep}&command=${commIdx}' />">
-            <p>絞り込み<br>
+            <p id="title">【絞り込み】</p>
+            <p>
             <input type="radio" name="${AttributeConst.REP_LESSON_STYLE.getValue()}" value=""
                 <c:if test="${lesson_style != AttributeConst.GROUP.getIntegerValue() && lesson_style != AttributeConst.PERSONAL.getIntegerValue()}">checked="checked"</c:if>
                 > すべて
@@ -44,8 +45,9 @@
             </p>
 
 
-            <p><input type="submit" value="表示"></p>
+            <p><input class="btn_blue" type="submit" value="表示"></p>
         </form>
+        </div><br>
 
          <table id="report_list">
             <tbody>
@@ -66,7 +68,7 @@
                         <td class="report_date">
                             <c:choose>
                                 <c:when test="${report.readFlag == AttributeConst.UNREAD.getIntegerValue()}">
-                                    ●
+                                    <span class="point">●</span>
                                 </c:when>
                                 <c:otherwise>
                                     &emsp;
@@ -90,9 +92,9 @@
                         <td class="report_class_name"><c:out value="${report.className}" /></td>
                         <td class="report_title"><c:out value="${report.title}" /></td>
                         <td class="report_action">
-                            <a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a>
+                            <a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />" class="btn_blue">詳細</a>
                             <c:if test="${sessionScope.login_employee.id != report.employee.id && report.readFlag == AttributeConst.READ.getIntegerValue()}">
-                                <a href="<c:url value='?action=${actRep}&command=${commUnread}&id=${report.id}' />">未読にする</a>
+                                <a href="<c:url value='?action=${actRep}&command=${commUnread}&id=${report.id}' />" class="btn_blue">未読</a>
                             </c:if>
                         </td>
                     </tr>
@@ -101,7 +103,7 @@
          </table>
 
         <div id="pagination">
-            （全 ${reports_count} 件）<br />
+            （全 ${reports_count} 件）<br />&nbsp;
             <c:forEach var="i" begin="1" end="${((reports_count - 1) / maxRow) + 1}" step="1">
                 <c:choose>
                     <c:when test="${i == page}">
