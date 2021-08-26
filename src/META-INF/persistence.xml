@@ -7,13 +7,14 @@
 		<class>models.Comment</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/keisetsu_report_system?useSSL=false&amp;allowPublicKeyRetrieval=true"/>
-			<property name="javax.persistence.jdbc.user" value="yamadaGo"/>
-			<property name="javax.persistence.jdbc.password" value="Go20011006"/>
-			<property name="javax.persistence.schema-generation.database.action" value="create"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://us-cdbr-east-04.cleardb.com/heroku_9bee953c6fc36de?reconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;useUnicode=true&amp;characterEncoding=utf8&amp;characterSetResults=utf8"/>
+			<property name="javax.persistence.jdbc.user" value="b6be65ce17399b"/>
+			<property name="javax.persistence.jdbc.password" value="d4358b61"/>
+			<property name="javax.persistence.schema-generation.database.action" value="none"/>
 			<property name="hibernate.dialect	" value="org.hibernate.dialect.MySQL8Dialect"/>
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.format_sql" value="true"/>
+			<property name="javax.persistence.schema-generation.scripts.action" value="none"/>
 		</properties>
 	</persistence-unit>
 </persistence>
