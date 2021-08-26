@@ -191,6 +191,7 @@ pre {
 }
 
 .btn_blue, button{
+    cursor: pointer;
     appearance: none;
   border: 0;
   border-radius: 5px;
