@@ -159,6 +159,12 @@ public class ReportAction extends ActionBase {
                 removeSessionScope(AttributeConst.FLUSH);
             }
 
+            String error = getSessionScope(AttributeConst.ERR);
+            if (flush != null) {
+                putRequestScope(AttributeConst.ERR, error);
+                removeSessionScope(AttributeConst.ERR);
+            }
+
             forward(ForwardConst.FW_REP_SHOW);
         }
     }
@@ -214,8 +220,9 @@ public class ReportAction extends ActionBase {
 
             } else {
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_UPDATED.getMessage());
+                putSessionScope(AttributeConst.SE_REP_ID, rv.getId());
 
-                redirect(ForwardConst.ACT_REP, ForwardConst.CMD_INDEX);
+                redirect(ForwardConst.ACT_REP, ForwardConst.CMD_SHOW);
             }
         }
     }

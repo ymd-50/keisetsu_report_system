@@ -44,11 +44,10 @@ public class CommentAction extends ActionBase {
             String error = commentService.create(cv);
 
             if(error != null) {
-                putRequestScope(AttributeConst.TOKEN, getTokenId());
-                putRequestScope(AttributeConst.COMMENT, cv);
-                putRequestScope(AttributeConst.ERR, error);
+                putSessionScope(AttributeConst.ERR, error);
+                putSessionScope(AttributeConst.SE_REP_ID, reportId);
 
-                forward(ForwardConst.FW_REP_SHOW);
+                redirect(ForwardConst.ACT_REP, ForwardConst.CMD_SHOW);
             } else {
                 putSessionScope(AttributeConst.FLUSH, MessageConst.I_COMMENTED.getMessage());
                 putSessionScope(AttributeConst.SE_REP_ID, reportId);

@@ -20,6 +20,12 @@
             </div>
         </c:if>
 
+        <c:if test="${errors != null}">
+            <div id="flush_error">
+                &#215;&emsp;<c:out value="${errors}"/>
+            </div>
+        </c:if>
+
         <c:choose>
             <c:when test="${report.lessonStyle == AttributeConst.GROUP.getIntegerValue()}">
                 <h2>授業報告 詳細</h2>
