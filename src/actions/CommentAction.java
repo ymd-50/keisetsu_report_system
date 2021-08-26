@@ -44,7 +44,7 @@ public class CommentAction extends ActionBase {
             String error = commentService.create(cv);
 
             if(error != null) {
-                putSessionScope(AttributeConst.ERR, error);
+                //putSessionScope(AttributeConst.ERR, error);
                 putSessionScope(AttributeConst.SE_REP_ID, reportId);
 
                 redirect(ForwardConst.ACT_REP, ForwardConst.CMD_SHOW);
